@@ -1,6 +1,7 @@
 const { createStore, applyMiddleware } = require("redux");
+const { fetchFunction } = require("./function");
 const { delayActionMiddleware } = require("./middlewares");
-const { fetchTodosMiddleware } = require("./mmiddlewers");
+const { fetchAsyncMiddleware } = require("./mmiddlewers");
 
 // initial State
 const initialState = {
@@ -35,7 +36,7 @@ const todoReducer = (state = initialState, action) => {
 // store
 const store = createStore(
   todoReducer,
-  applyMiddleware(delayActionMiddleware, fetchTodosMiddleware)
+  applyMiddleware(delayActionMiddleware, fetchAsyncMiddleware)
 );
 
 // subscrib to store
@@ -49,6 +50,4 @@ store.subscribe(() => {
 //   payload: "Lear Redux.js with LWS",
 // });
 
-store.dispatch({
-  type: "todo/fetchTodos",
-});
+store.dispatch(fetchFunction);
